@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  pythonio: &pythonio
+    build:
+      context: .
+      dockerfile: ./compose/local/pythonio/Dockerfile
+    image: local_python_socketio_server
+    ports:
+      - "3000:3000"
+    command: /start
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: production_python_socketio_server_nginx
+    depends_on:
+      - pythonio
+    ports:
+      - 80:80
+      - 443:443
