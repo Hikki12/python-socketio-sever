@@ -1,22 +1,28 @@
 version: "3.9"
 
 services:
-  pythonio: &pythonio
+  flask: &flask
     build:
       context: .
-      dockerfile: ./compose/local/pythonio/Dockerfile
-    image: local_python_socketio_server
-    ports:
-      - "3000:3000"
+      dockerfile: ./compose/production/flask/Dockerfile
+    image: production_flask_server
+    volumes:
+      - .:/app
+    expose:
+      - 3000
     command: /start
 
   nginx:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
-    image: production_python_socketio_server_nginx
+    image: production_nginx_server
     depends_on:
-      - pythonio
+      - flask
     ports:
+      - 3000:3000
       - 80:80
       - 443:443
+
+volumes:
+  static_volume:

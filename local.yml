@@ -7,7 +7,7 @@ services:
       dockerfile: ./compose/local/flask/Dockerfile
     image: local_flask_socketio
     volumes:
-      - .:/app    
+      - .:/app  
     ports:
       - "3000:3000"
     command: /start

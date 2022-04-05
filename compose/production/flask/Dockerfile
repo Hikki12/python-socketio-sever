@@ -9,18 +9,19 @@ RUN apk update \
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
 RUN pip install --upgrade pip
-RUN pip install -r /requirements/local.txt
+RUN pip install -r /requirements/production.txt
 
 
-COPY ./compose/local/pythonio/start /start
+COPY ./compose/production/flask/start /start
 RUN sed -i 's/\r//' /start
 RUN chmod +x /start
 
 # Configure an entrypoint
-COPY ./compose/production/pythonio/entrypoint /entrypoint
+COPY ./compose/production/flask/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
 
 WORKDIR /app
+RUN echo $(ls)
 
 ENTRYPOINT ["/entrypoint"]
