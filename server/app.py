@@ -1,10 +1,11 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
+from engineio.payload import Payload
 from routes import *
-
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret!"
+Payload.max_decode_packets = 300
 socketio = SocketIO(app, cors_allowed_origins="*")
 users = {}
 
