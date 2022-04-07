@@ -25,5 +25,6 @@ WORKDIR /app
 
 ENV FLASK_APP=server/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_ENV=development
 
 ENTRYPOINT ["/entrypoint"]
